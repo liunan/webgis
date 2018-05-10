@@ -206,10 +206,14 @@ ol.control.Cesium = function (opt_options) {
     setTimeout(function () {
         var ol3d = new olcs.OLCesium({map: _this.getMap()});
         var scene = ol3d.getCesiumScene();
-        scene.terrainProvider = Cesium.createWorldTerrain();
+		
+		//场景中打开地形
+        //scene.terrainProvider = Cesium.createWorldTerrain();
 
         _this.set('cesium', ol3d);
     }, 2000);
+	
+	// 向工具条上增加2-3D切换按钮
     var controlButton = document.createElement('button');
     controlButton.textContent = '3D';
     controlButton.title = 'Toggle 3D rendering';
@@ -259,10 +263,26 @@ function init() {
     var map = new ol.Map({
         target: 'map',
         layers: [
+		/*
             new ol.layer.Tile({
                 source: new ol.source.OSM(),
 				name:'OpenStreetMap'
             }),
+		*/
+			
+			new ol.layer.Tile({
+				preload: Infinity,
+				source: new ol.source.BingMaps({
+						key: 'As1HiMj1PvLPlqc_gtM7AqZfBL8ZL3VrjaS3zIb22Uvb9WKhuJObROC-qUpa81U5',
+						imagerySet: 'Aerial'
+						// use maxZoom 19 to see stretched tiles instead of the BingMaps
+						// "no photos at this zoom level" tiles
+						// maxZoom: 19
+					}),
+				name: 'Bing'
+			}),
+			
+			
             new ol.layer.Vector({
                 source: new ol.source.Vector({
                     format: new ol.format.GeoJSON({
