@@ -167,3 +167,11 @@ background-image: url(../../res/button_vector.png);
 .error {
 	border-color: red;
 }
+
+.layertree-buttons .deletelayer {
+background-image: url(../../res/button_delete.png);
+}
+
+.layercontainer .layer.active {
+border-color: orange;
+}
